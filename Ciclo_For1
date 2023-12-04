@@ -15,7 +15,7 @@ public class Ciclo_For1 {
         ContaNum=tastiera.nextInt();
         for (int i=0; i<=ContaNum; i++){
             num= tastiera.nextInt();
-            System.out.println(i+"-"+nknlrsnlksfnselfum);
+            System.out.println(i+"-"+num);
 
 
 
