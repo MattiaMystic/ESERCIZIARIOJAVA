@@ -13,7 +13,7 @@ public class Vinaio {
         numero = tastiera.nextInt();
         System.out.println("Il numero inserito e'"+numero);
     System.out.println("Nuovo cliente?");
-    risposta =tastiera.next();
+    risposta = tastiera.next();
     }while (risposta.equals("S"));
     System.out.println("uscita programma");
 
