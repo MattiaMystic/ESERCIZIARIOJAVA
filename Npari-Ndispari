@@ -24,7 +24,7 @@ public class AppNumeri {
             visualizza(vetNumeri);
         }else {System.out.println("Non e' stato creato il vettore!");}
         break;
-        case 3:       System.out.println("visualizza numeri pari");
+        case 3:       System.out.println("calcola numeri pari, clicca 4 per vederli!");
 
             vetPari= new int[QuantiNumeri];
             for(int i=0;i<QuantiNumeri;i++){
@@ -41,7 +41,7 @@ public class AppNumeri {
                 visualizza(vetPari);
             }else {System.out.println("Non e' stato creato il vettore!");}
             break;
-        case 5:       System.out.println("visualizza numeri dispari");
+        case 5:       System.out.println("calcolo numeri dispari, clicca 6 per vederli");
 
             vetDispari= new int[QuantiNumeri];
             for(int i=0;i<QuantiNumeri;i++){
@@ -70,9 +70,9 @@ public class AppNumeri {
         System.out.println("==AppNumeri casuale");
         System.out.println("[1]genera numeri");
         System.out.println("[2] visualizza numeri");
-        System.out.println("[3] gemera pari");
+        System.out.println("[3] genera pari");
         System.out.println("[4] visualizza pari");
-        System.out.println("[5] gemera dispari");
+        System.out.println("[5] genera dispari");
         System.out.println("[6] visualizza dispari");
         System.out.println("[7] exit");
     }
