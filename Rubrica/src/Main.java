@@ -1,212 +1,236 @@
-import static Tools.Utility.*;
+//Il metodo visualizzaContattiNascosti non è più stato implementato in quanto per sapere
+// quale contatto sia nascosto o meno usiamo l'attributo "nascosto" della classe CONTATTO
 
 import java.util.Scanner;
 
+import static Tools.Utility.*;
+
 public class Main {
+    public static final String passwordd = "password";
+
     public static void main(String[] args) {
-        String[] operazioni = {"VODAFONE",
-                "[1] Inserimento",
-                "[2] Visualizzazione",
-                "[3] Ricerca",
-                "[4] Cambio numero di telefono",
-                "[5] Cambio contratto",
-                "[6] Eliminazione del contatto tramite nome e cognome",
-                "[7] Eliminazione del contatto tramite numero",
-                "[8] Fine"};
-        boolean SiTel = true;
-        String[] tipoC = {"Telefono", "1]abitazione", "2]cellulare", "3]aziendale"};
-        int posizione = 0;
-        final int nMax = 3;
+        Scanner scanner = new Scanner(System.in);
+        final int contatti = 10;
         int contrattiVenduti = 0;
-        Contatto[] gestore = new Contatto[nMax];
-        Contatto telefono = new Contatto();
-
-        Scanner keyboard = new Scanner(System.in);
-
-        boolean fine = true;
+        int chiamateFatte = 0;
+        int saldo = 0;
+        int valoreRicarica;
+        CONTATTO[] gestore = new CONTATTO[contatti];
+        CONTATTO[] cronologia = new CONTATTO[999];
+        String[] opzioni = {"RUBRICA", "1 - Aggiungi contatto", "2 - Visualizza contatti", "3 - Visualiza contatti nascosti", "4 - Rendi contatto nascosto", "5 - Rendi contatto visibile", "6 - Chiama contatto", "7 - Visualizza ultime chiamate", "8 - Ricarica", "9 - Esci"};
+        int scelta;
+        String contattoDaChiamare;
+        String passwordInserita;
         do {
-            switch (menu(operazioni, keyboard)) {
-                case 1:
+            scelta = menu(opzioni, scanner);
+            switch (scelta) {
+                case 1 -> {
 
-                    if (contrattiVenduti < nMax) {
+                    if (contrattiVenduti < contatti) {
                         //firma contratto
-                        gestore[contrattiVenduti] = LeggiPersona(SiTel, keyboard);
+                        gestore[contrattiVenduti] = LeggiPersona( scanner);
                         while (ControlloNumero(gestore, gestore[contrattiVenduti], contrattiVenduti)) {
                             System.out.println("Reinseisci il numero perchè già presente");
-                            gestore[contrattiVenduti].numDiTelefono = keyboard.nextLine();
+                            gestore[contrattiVenduti].NumeroDiTelefono = scanner.nextLine();
+
                         }
-                        //entra solo se il nome e il cognome non sono presenti
-                        if (!Ricerca(gestore, gestore[contrattiVenduti], contrattiVenduti)) {
-                            contrattiVenduti++;
-                        }
-                        //se il nome e il cognome sono già stati inseriti annulla l'inserimento
-                        else {
-                            System.out.println("Il nome utente è già presente");
-                            gestore[contrattiVenduti] = null;
-                        }
+                        contrattiVenduti++;
+
                     } else {
                         System.out.println("Non ci sono più contratti da vendere");
                     }
-                    break;
-                case 2: {
+                }
+                case 2 -> {
                     Visualizza(gestore, contrattiVenduti);
-                    break;
                 }
-
-                case 3: {
-                    if (contrattiVenduti != 0) {
-                        //Ci sono contratti venduti
-                        //lettura, ricerca, visualizzazione
-                        posizione = Posizione(gestore, LeggiPersona(false, keyboard), contrattiVenduti);
-                        if (posizione != -1) {
-                            System.out.println(gestore[posizione].anagrafica());
+                case 3 -> {
+                    System.out.println("Inserisci la password");
+                    passwordInserita = scanner.nextLine();
+                    if (controllaPassword(passwordInserita)) {
+                        if (!visualizzaContattiNascosti(gestore, contrattiVenduti)) {
+                            System.out.println("Non vi è alcun contatto nascosto da visualizzare");
+                        }
+                    } else {
+                        System.out.println("Password errata inserita!");
+                    }
+                }
+                case 4 -> {
+                    System.out.println("Inserisci la password");
+                    passwordInserita = scanner.nextLine();
+                    if (controllaPassword(passwordInserita)) {
+                        if (rendiCONTATTONascosto(gestore, contrattiVenduti, scanner)) {
+                            System.out.println("CONTATTO nascosto con successo");
                         } else {
-                            System.out.println("Il contatto non esiste");
+                            System.out.println("Il contatto inserito non è presente");
                         }
                     } else {
-                        System.out.println("Non sono ancora presenti contratti venduti");
+                        System.out.println("Password inserita errata!");
                     }
-                    break;
                 }
-                case 4: {
-                    posizione = Posizione(gestore, LeggiPersona(false, keyboard), contrattiVenduti);
-                    if (posizione != -1) {
-                        System.out.println("Inserisci il numero");
-                        gestore[posizione].numDiTelefono = keyboard.nextLine();
-                        if (ControlloNumero(gestore, gestore[posizione], contrattiVenduti)) {
-                            System.out.println("Il numero è uguale a quello inserito precedentemente");
+                case 5 -> {
+                    System.out.println("Inserisci la password");
+                    passwordInserita = scanner.nextLine();
+                    if (controllaPassword(passwordInserita)) {
+                        if (rendiCONTATTOVisibile(gestore, contrattiVenduti, scanner)) {
+                            System.out.println("Il contatto è stato reso visibile");
+                        } else {
+                            System.out.println("Il contatto non è presente nel gestore o è già visibile");
                         }
                     } else {
-                        System.out.println("Il contatto non esiste");
+                        System.out.println("Password inserita errata!");
                     }
-                    break;
                 }
-                case 5: {
-                    posizione = Posizione(gestore, LeggiPersona(false, keyboard), contrattiVenduti);
-                    if (posizione != -1) {
-                        switch (menu(tipoC, keyboard)) {
-                            case 1 -> gestore[posizione].tipo = Tipologia.abitazione;
-                            case 2 -> gestore[posizione].tipo = Tipologia.cellulare;
-                            default -> gestore[posizione].tipo = Tipologia.azienda;
+                case 6 -> {
+                    if (saldo >= 5) {
+                        System.out.println("Inserisci il NumeroDiTelefono del contatto che vuoi chiamare");
+                        contattoDaChiamare = scanner.nextLine();
+                        if (chiamaCONTATTO(gestore, cronologia, contrattiVenduti, chiamateFatte, contattoDaChiamare)) {
+                            System.out.println("Chiamata fatta");
+                            saldo = saldo - 5;
+                            chiamateFatte++;
+                        } else {
+                            System.out.println("Il contatto che cerchi non è presente");
                         }
                     } else {
-                        System.out.println("Il contatto non esiste");
+                        System.out.println("Il tuo saldo è insufficiente per chiamare");
                     }
-                    break;
                 }
+                case 7 ->
+                        visualizzaUltimeChiamate(cronologia, chiamateFatte);
+                case 8 -> {
+                    System.out.println("Quanto vuoi ricaricare? 1) 5 euro 2) 10 euro 3) 20 euro");
+                    String input = scanner.nextLine();
 
-                case 6: {
-                    posizione = Posizione(gestore, LeggiPersona(false, keyboard), contrattiVenduti);
-                    if (posizione != -1) {
-                        gestore = PosizioneEliminata(gestore, contrattiVenduti, posizione);
-                        gestore[contrattiVenduti - 1] = null;
-                        contrattiVenduti--;
-                        System.out.println("Il contatto è stato eliminato");
-                    } else {
-                        System.out.println("Il contatto non esiste");
+
+                    while (true) {
+                        try {
+                            valoreRicarica = Integer.parseInt(input);
+                            if (valoreRicarica == 1 || valoreRicarica == 2 || valoreRicarica == 3) {
+                                break;
+                            } else {
+                                System.out.println("Il valore inserito non è valido. Reinserire.");
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Il valore inserito non è valido. Reinserire.");
+                        }
+                        input = scanner.nextLine();
                     }
-                    break;
+
+                    saldo = ricaricaSaldo(saldo, valoreRicarica);
+                    System.out.println("Ricarica effettuata");
                 }
-                case 7: {
-                    System.out.println("Inserisci il numero di telefono");
-                    telefono.numDiTelefono = keyboard.nextLine();
-                    posizione = PosizioneTelefono(gestore, telefono, contrattiVenduti);
-                    if (posizione != -1) {
-                        gestore = PosizioneEliminata(gestore, contrattiVenduti, posizione);
-                        gestore[contrattiVenduti - 1] = null;
-                        contrattiVenduti--;
-                        System.out.println("Il contatto è stato eliminato");
-                    } else {
-                        System.out.println("Il contatto non esiste");
-                    }
-                    break;
-                }
-                default:
-                    fine = false;
-                    break;
+                case 9 -> System.out.println("Fine");
             }
-        } while (fine);
+        } while (scelta != 9);
     }
 
-    private static Contatto LeggiPersona(boolean Sitel, Scanner tastiera) {
-        //Sitel è true quando dobbiamo leggere
-        String[] tipoC = {"Telefono", "1]abitazione", "2]cellulare", "3]aziendale"};
-        //Istanziato un oggetto di tipo contatto:
-        Contatto persona = new Contatto();
-        System.out.println("Inserisci il nome: ");
-        persona.nome = tastiera.nextLine();
-        System.out.println("\nInserisci il cognome: ");
-        persona.cognome = tastiera.nextLine();
-        if (Sitel) {
-            System.out.println("\nInserisci il numero di telefono: ");
-            persona.numDiTelefono = tastiera.nextLine();  //Vado a leggere il numero di telefono
+    public static void Visualizza(CONTATTO[] gestore, int contrattiVenduti) {
 
-            //I valori assegnati all'attributo sono compresi nel range
-            switch (menu(tipoC, tastiera)) {
-                case 1 -> persona.tipo = Tipologia.abitazione;
-                case 2 -> persona.tipo = Tipologia.cellulare;
-                default -> persona.tipo = Tipologia.azienda;
+            for (int i = 0; i < contrattiVenduti; i++) {
+                if (!gestore[i].nascosto) {
+                    System.out.println(gestore[i].toString());
+                }
             }
+
         }
 
-        return persona;
+    public static boolean visualizzaContattiNascosti(CONTATTO[] gestore, int contrattiVenduti) {
+        boolean presente = false;
+        for (int i = 0; i < contrattiVenduti; i++) {
+            if (gestore[i].nascosto) {
+                presente = true;
+                System.out.println(gestore[i]);
+            }
+        }
+        return presente;
     }
 
-    private static boolean ControlloNumero(Contatto[] gestore, Contatto contatto, int contrattiVenduti) {
+    private static CONTATTO LeggiPersona( Scanner scanner) {
+        CONTATTO contatto = new CONTATTO();
+        System.out.println("Inserisci il nome del contatto");
+        contatto.nome = scanner.nextLine();
+        System.out.println("Inserisci il cognome del contatto");
+        contatto.cognome = scanner.nextLine();
+        System.out.println("Inserisci il NumeroDiTelefono del contatto");
+        contatto.NumeroDiTelefono = scanner.nextLine();
+
+
+        return contatto;
+    }
+    private static boolean ControlloNumero(CONTATTO[] gestore, CONTATTO contatto, int contrattiVenduti) {
         for (int i = 0; i < contrattiVenduti; i++) {
-            if (gestore[i].numDiTelefono.equals(contatto.numDiTelefono)) {
+            if (gestore[i].NumeroDiTelefono.equals(contatto.NumeroDiTelefono)) {
                 return true;
             }
         }
         return false;
     }
 
-    private static int Posizione(Contatto[] gestore, Contatto contatto, int contrattiVenduti) {
 
+    public static boolean rendiCONTATTONascosto(CONTATTO[] gestore, int contrattiVenduti, Scanner scanner) {
+        System.out.println("Inserisci il nome del contatto che vuoi rendere nascosto");
+        boolean presente = false;
+        String nome = scanner.nextLine();
         for (int i = 0; i < contrattiVenduti; i++) {
-            if (contatto.nome.equals(gestore[i].nome) && contatto.cognome.equals(gestore[i].cognome)) {
-                return i;
+            if (gestore[i].nome.equals(nome)) {
+                presente = true;
+                if (!gestore[i].nascosto) {
+                    gestore[i].nascosto = true;
+                } else {
+                    System.out.println("Questo contatto è già nascosto");
+                    break;
+                }
             }
         }
-        return -1;
+        return presente;
     }
 
-    //serve per trovare la posizione del telefono all'iterno dell'array
-    private static int PosizioneTelefono(Contatto[] gestore, Contatto contatto, int contrattiVenduti) {
+    public static boolean rendiCONTATTOVisibile(CONTATTO[] gestore, int contrattiVenduti, Scanner scanner) {
+        System.out.println("Inserisci il nome del contatto che vuoi rendere visibile");
+        boolean presente = false;
+        String nome = scanner.nextLine();
         for (int i = 0; i < contrattiVenduti; i++) {
-            if (gestore[i].numDiTelefono.equals(contatto.numDiTelefono)) {
-                return i;
+            if (gestore[i].nome.equals(nome)) {
+                presente = true;
+                if (gestore[i].nascosto) {
+                    gestore[i].nascosto = false;
+                } else {
+                    return false;
+                }
             }
         }
-        return -1;
+        return presente;
     }
 
-    //elimina la posizione dell'array
-    private static Contatto[] PosizioneEliminata(Contatto[] gestore, int contrattiVenduti, int posizione) {
-        for (int i = posizione; i < contrattiVenduti; i++) {
-            gestore[posizione] = gestore[posizione + 1];
-        }
-
-        return gestore;
-    }
-
-    private static boolean Ricerca(Contatto[] gestore, Contatto contatto, int contrattiVenduti) {
-        //Controllo se il nome e il cognome del contatto e ugale al nome e cogome del gestore
-        boolean ricerca = false;
-
+    public static boolean chiamaCONTATTO(CONTATTO[] gestore, CONTATTO[] cronologia, int contrattiVenduti, int chiamateFatte, String contattoDaChiamare) {
         for (int i = 0; i < contrattiVenduti; i++) {
-            if (contatto.nome.equals(gestore[i].nome) && contatto.cognome.equals(gestore[i].cognome)) {
-                ricerca = true;
+            if (gestore[i].NumeroDiTelefono.equals(contattoDaChiamare)) {
+                cronologia[chiamateFatte] = gestore[i];
+                return true;
             }
         }
-        return ricerca;
+        return false;
     }
 
-    private static void Visualizza(Contatto[] gestore, int contrattiVenduti) {
-        for (int i = 0; i < contrattiVenduti; i++) {
-            System.out.println(gestore[i].anagrafica());
+    public static void visualizzaUltimeChiamate(CONTATTO[] cronologia, int chiamateFatte) {
+        for (int i = chiamateFatte - 1; i >= 0; i--) {
+            System.out.println(cronologia[i]);
         }
-
+        if (chiamateFatte == 0) {
+            System.out.println("Non si ha ancora chiamato alcun contatto");
+        }
     }
 
+    private static int ricaricaSaldo(int saldo, int valoreRicarica) {
+        switch (valoreRicarica) {
+            case 1 -> saldo = saldo + 5;
+            case 2 -> saldo = saldo +10;
+            case 3 -> saldo = saldo + 20;
+        }
+        return saldo;
+    }
+
+    public static boolean controllaPassword(String password) {
+        return password.equals(password);
+    }
 }
