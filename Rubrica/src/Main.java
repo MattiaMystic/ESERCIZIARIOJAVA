@@ -6,18 +6,18 @@ import java.util.Scanner;
 import static Tools.Utility.*;
 
 public class Main {
-    public static final String passwordd = "password";
+    public static final String password = "password";
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         final int contatti = 10;
-        int contrattiVenduti = 0;
+        int contratti = 0;
         int chiamateFatte = 0;
         int saldo = 0;
-        int valoreRicarica;
+        int valoreRicarica = 0;
         CONTATTO[] gestore = new CONTATTO[contatti];
         CONTATTO[] cronologia = new CONTATTO[999];
-        String[] opzioni = {"RUBRICA", "1 - Aggiungi contatto", "2 - Visualizza contatti", "3 - Visualiza contatti nascosti", "4 - Rendi contatto nascosto", "5 - Rendi contatto visibile", "6 - Chiama contatto", "7 - Visualizza ultime chiamate", "8 - Ricarica", "9 - Esci"};
+        String[] opzioni = {"RUBRICAFIN", "[1] - Aggiungi contatto", "[2] - Visualizza contatti", "[3] - Visualiza contatti nascosti", "[4] - Rendi contatto nascosto", "[5] - Rendi contatto visibile", "[6] - Chiama contatto", "[7] - Visualizza ultime chiamate", "[8] - Ricarica", "[9] Visualizza saldo", "[10] - Esci"};
         int scelta;
         String contattoDaChiamare;
         String passwordInserita;
@@ -26,28 +26,28 @@ public class Main {
             switch (scelta) {
                 case 1 -> {
 
-                    if (contrattiVenduti < contatti) {
+                    if (contratti < contatti) {
                         //firma contratto
-                        gestore[contrattiVenduti] = LeggiPersona( scanner);
-                        while (ControlloNumero(gestore, gestore[contrattiVenduti], contrattiVenduti)) {
+                        gestore[contratti] = LeggiPersona( scanner);
+                        while (ControlloNumero(gestore, gestore[contratti], contratti)) {
                             System.out.println("Reinseisci il numero perchè già presente");
-                            gestore[contrattiVenduti].NumeroDiTelefono = scanner.nextLine();
+                            gestore[contratti].NumeroDiTelefono = scanner.nextLine();
 
                         }
-                        contrattiVenduti++;
+                        contratti++;
 
                     } else {
                         System.out.println("Non ci sono più contratti da vendere");
                     }
                 }
                 case 2 -> {
-                    Visualizza(gestore, contrattiVenduti);
+                    Visualizza(gestore, contratti);
                 }
                 case 3 -> {
                     System.out.println("Inserisci la password");
                     passwordInserita = scanner.nextLine();
                     if (controllaPassword(passwordInserita)) {
-                        if (!visualizzaContattiNascosti(gestore, contrattiVenduti)) {
+                        if (!visualizzaContattiNascosti(gestore, contratti)) {
                             System.out.println("Non vi è alcun contatto nascosto da visualizzare");
                         }
                     } else {
@@ -58,7 +58,7 @@ public class Main {
                     System.out.println("Inserisci la password");
                     passwordInserita = scanner.nextLine();
                     if (controllaPassword(passwordInserita)) {
-                        if (rendiCONTATTONascosto(gestore, contrattiVenduti, scanner)) {
+                        if (rendiCONTATTONascosto(gestore, contratti, scanner)) {
                             System.out.println("CONTATTO nascosto con successo");
                         } else {
                             System.out.println("Il contatto inserito non è presente");
@@ -71,7 +71,7 @@ public class Main {
                     System.out.println("Inserisci la password");
                     passwordInserita = scanner.nextLine();
                     if (controllaPassword(passwordInserita)) {
-                        if (rendiCONTATTOVisibile(gestore, contrattiVenduti, scanner)) {
+                        if (rendiCONTATTOVisibile(gestore, contratti, scanner)) {
                             System.out.println("Il contatto è stato reso visibile");
                         } else {
                             System.out.println("Il contatto non è presente nel gestore o è già visibile");
@@ -82,9 +82,9 @@ public class Main {
                 }
                 case 6 -> {
                     if (saldo >= 5) {
-                        System.out.println("Inserisci il NumeroDiTelefono del contatto che vuoi chiamare");
+                        System.out.println("Inserisci il numero del contatto che vuoi chiamare");
                         contattoDaChiamare = scanner.nextLine();
-                        if (chiamaCONTATTO(gestore, cronologia, contrattiVenduti, chiamateFatte, contattoDaChiamare)) {
+                        if (chiamaCONTATTO(gestore, cronologia, contratti, chiamateFatte, contattoDaChiamare)) {
                             System.out.println("Chiamata fatta");
                             saldo = saldo - 5;
                             chiamateFatte++;
@@ -98,35 +98,43 @@ public class Main {
                 case 7 ->
                         visualizzaUltimeChiamate(cronologia, chiamateFatte);
                 case 8 -> {
-                    System.out.println("Quanto vuoi ricaricare? 1) 5 euro 2) 10 euro 3) 20 euro");
-                    String input = scanner.nextLine();
+                   
+                        System.out.println("Quanto vuoi ricaricare? 1) 5 euro 2) 10 euro 3) 20 euro");
+                    String ricaricaInput = scanner.nextLine();
 
+                    
+                    boolean inputValido = false;
 
-                    while (true) {
-                        try {
-                            valoreRicarica = Integer.parseInt(input);
-                            if (valoreRicarica == 1 || valoreRicarica == 2 || valoreRicarica == 3) {
-                                break;
+                    while (!inputValido) {
+                        valoreRicarica = Integer.parseInt(ricaricaInput);
+                        if (valoreRicarica == 1 || valoreRicarica == 2 || valoreRicarica == 3) {
+                            
+                            if (valoreRicarica >= 1 && valoreRicarica <= 3) {
+                                inputValido = true;
                             } else {
                                 System.out.println("Il valore inserito non è valido. Reinserire.");
+                                ricaricaInput = scanner.nextLine();
                             }
-                        } catch (NumberFormatException e) {
+                        } else {
                             System.out.println("Il valore inserito non è valido. Reinserire.");
+                            ricaricaInput = scanner.nextLine();
                         }
-                        input = scanner.nextLine();
                     }
 
                     saldo = ricaricaSaldo(saldo, valoreRicarica);
                     System.out.println("Ricarica effettuata");
+
                 }
-                case 9 -> System.out.println("Fine");
+                case 9 ->
+                        System.out.println("Il tuo saldo è: "+saldo);
+                case 10 -> System.out.println("Fine");
             }
-        } while (scelta != 9);
+        } while (scelta != 10);
     }
 
-    public static void Visualizza(CONTATTO[] gestore, int contrattiVenduti) {
+    public static void Visualizza(CONTATTO[] gestore, int contratti) {
 
-            for (int i = 0; i < contrattiVenduti; i++) {
+            for (int i = 0; i < contratti; i++) {
                 if (!gestore[i].nascosto) {
                     System.out.println(gestore[i].toString());
                 }
@@ -134,9 +142,9 @@ public class Main {
 
         }
 
-    public static boolean visualizzaContattiNascosti(CONTATTO[] gestore, int contrattiVenduti) {
+    public static boolean visualizzaContattiNascosti(CONTATTO[] gestore, int contratti) {
         boolean presente = false;
-        for (int i = 0; i < contrattiVenduti; i++) {
+        for (int i = 0; i < contratti; i++) {
             if (gestore[i].nascosto) {
                 presente = true;
                 System.out.println(gestore[i]);
@@ -157,8 +165,8 @@ public class Main {
 
         return contatto;
     }
-    private static boolean ControlloNumero(CONTATTO[] gestore, CONTATTO contatto, int contrattiVenduti) {
-        for (int i = 0; i < contrattiVenduti; i++) {
+    private static boolean ControlloNumero(CONTATTO[] gestore, CONTATTO contatto, int contratti) {
+        for (int i = 0; i < contratti; i++) {
             if (gestore[i].NumeroDiTelefono.equals(contatto.NumeroDiTelefono)) {
                 return true;
             }
@@ -167,11 +175,11 @@ public class Main {
     }
 
 
-    public static boolean rendiCONTATTONascosto(CONTATTO[] gestore, int contrattiVenduti, Scanner scanner) {
+    public static boolean rendiCONTATTONascosto(CONTATTO[] gestore, int contratti, Scanner scanner) {
         System.out.println("Inserisci il nome del contatto che vuoi rendere nascosto");
         boolean presente = false;
         String nome = scanner.nextLine();
-        for (int i = 0; i < contrattiVenduti; i++) {
+        for (int i = 0; i < contratti; i++) {
             if (gestore[i].nome.equals(nome)) {
                 presente = true;
                 if (!gestore[i].nascosto) {
@@ -185,11 +193,11 @@ public class Main {
         return presente;
     }
 
-    public static boolean rendiCONTATTOVisibile(CONTATTO[] gestore, int contrattiVenduti, Scanner scanner) {
+    public static boolean rendiCONTATTOVisibile(CONTATTO[] gestore, int contratti, Scanner scanner) {
         System.out.println("Inserisci il nome del contatto che vuoi rendere visibile");
         boolean presente = false;
         String nome = scanner.nextLine();
-        for (int i = 0; i < contrattiVenduti; i++) {
+        for (int i = 0; i < contratti; i++) {
             if (gestore[i].nome.equals(nome)) {
                 presente = true;
                 if (gestore[i].nascosto) {
@@ -202,8 +210,8 @@ public class Main {
         return presente;
     }
 
-    public static boolean chiamaCONTATTO(CONTATTO[] gestore, CONTATTO[] cronologia, int contrattiVenduti, int chiamateFatte, String contattoDaChiamare) {
-        for (int i = 0; i < contrattiVenduti; i++) {
+    public static boolean chiamaCONTATTO(CONTATTO[] gestore, CONTATTO[] cronologia, int contratti, int chiamateFatte, String contattoDaChiamare) {
+        for (int i = 0; i < contratti; i++) {
             if (gestore[i].NumeroDiTelefono.equals(contattoDaChiamare)) {
                 cronologia[chiamateFatte] = gestore[i];
                 return true;
@@ -230,7 +238,7 @@ public class Main {
         return saldo;
     }
 
-    public static boolean controllaPassword(String password) {
-        return password.equals(password);
+    public static boolean controllaPassword(String Password) {
+        return Password.equals(password);
     }
 }
