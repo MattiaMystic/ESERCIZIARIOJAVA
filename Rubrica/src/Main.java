@@ -159,7 +159,7 @@ public class Main {
         contatto.nome = scanner.nextLine();
         System.out.println("Inserisci il cognome del contatto");
         contatto.cognome = scanner.nextLine();
-        System.out.println("Inserisci il NumeroDiTelefono del contatto");
+        System.out.println("Inserisci il numero del contatto");
         contatto.NumeroDiTelefono = scanner.nextLine();
 
 
