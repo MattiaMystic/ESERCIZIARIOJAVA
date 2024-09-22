@@ -8,7 +8,7 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) {
         Scanner tastiera = new Scanner(System.in);
-        String[] opzioni = {"Menu", "1 Genera Random", "2 Visualizzazione", "3 Controllo","4 Fine"};
+        String[] opzioni = {"Menu", "1 Genera Random", "2 Visualizzazione", "3 Fine"};
         boolean esci = true;
         int[] nEstratti = null;
         final int MAXNUMERI = 100;
@@ -29,14 +29,8 @@ public class Main {
                         System.out.println(nEstratti2[i]);
                     }
                     break;
-                case 3:
-                  generaNumeriSenzaDuplicati(nEstratti2);
-                    for (int i = 0; i < nEstratti2.length; i++) {
-                        System.out.println(nEstratti2[i]);
-                    }
-                    break;
 
-                case 4:
+                case 3:
                     System.out.println("Fine");
                     esci = false;
                     break;
@@ -44,37 +38,34 @@ public class Main {
         } while (esci);
     }
 
-   /* public static int[] generaNumeri(int nNumeri) {
-        Random numeroRandom = new Random();
-        int[] nGenerati = new int[nNumeri];
-        for (int i = 0; i < nNumeri; i++)
-            nGenerati[i] = numeroRandom.nextInt(0, nNumeri) + 1;
-        return nGenerati;
-    }*/
+    /* public static int[] generaNumeri(int nNumeri) {
+         Random numeroRandom = new Random();
+         int[] nGenerati = new int[nNumeri];
+         for (int i = 0; i < nNumeri; i++)
+             nGenerati[i] = numeroRandom.nextInt(0, nNumeri) + 1;
+         return nGenerati;
+     }*/
     public static void generaNumeri2(int[] vettore) {
         Random numeroRandom = new Random();
-        for (int i = 0; i < vettore.length; i++)
-            vettore[i] = numeroRandom.nextInt(0, vettore.length) + 1;
-    }
+        int numero; // numero da generare e inserire nel vettore
+        int cont = 0; // verifica quanti numeri sono presenti senza ripetizioni
 
-    public static void generaNumeriSenzaDuplicati(int[] vettore) {
+        while (cont < vettore.length) {
+            numero = numeroRandom.nextInt(0, vettore.length) + 1;
+            boolean presente = true; // true se numero presente, false se no
 
-
-        for (int i = 0; i < vettore.length; i++) {
-            boolean duplicato;
-
-            do {
-                duplicato = false;
-                for (int j = 0; j < i; j++) {
-                    if (vettore[j] == vettore[i]) {
-                        duplicato = true;
-                        break;
-                    }
+            for (int i = 0; i < cont; i++) { // Controlla se il numero è già presente
+                if (vettore[i] == numero) {
+                    presente = false;
                 }
+            }
 
-            } while (duplicato);
-            vettore[i]=
-
+            if (presente) { // se non è presente lo aggiungo all'array
+                vettore[cont] = numero;
+                cont++;
+            }
         }
     }
+
+
 }
