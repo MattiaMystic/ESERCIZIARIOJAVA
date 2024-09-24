@@ -45,26 +45,27 @@ public class Main {
              nGenerati[i] = numeroRandom.nextInt(0, nNumeri) + 1;
          return nGenerati;
      }*/
-    public static void generaNumeri2(int[] vettore) {
+ public static void generaNumeri2(int[] vettore) {
         Random numeroRandom = new Random();
-        int numero; // numero da generare e inserire nel vettore
-        int cont = 0; // verifica quanti numeri sono presenti senza ripetizioni
+        int numero;
+        int cont=0;
+        boolean presente;
 
-        while (cont < vettore.length) {
+        do{
             numero = numeroRandom.nextInt(0, vettore.length) + 1;
-            boolean presente = true; // true se numero presente, false se no
+           presente=false; // true se numero presente, false se no
 
             for (int i = 0; i < cont; i++) { // Controlla se il numero è già presente
                 if (vettore[i] == numero) {
-                    presente = false;
+                    presente = true;
                 }
             }
 
-            if (presente) { // se non è presente lo aggiungo all'array
+            if (!presente) { // se non è presente lo aggiungo all'array
                 vettore[cont] = numero;
                 cont++;
             }
-        }
+        } while (cont < vettore.length);
     }
 
 
