@@ -11,7 +11,7 @@ public class Main {
         String[] opzioni = {"Menu", "1 Genera Random", "2 Visualizzazione", "3 Ricerca","4 Cancella numero","5 ordina con un nuovo vettore in modo crescente", "6 Raddoppia vettore","7 Fine"};
         boolean esci = true;
         int[] nEstratti3 = null;
-         int MAXNUMERI = 50;
+        final int MAXNUMERI = 50;
         int[] nEstratti4 = new int[MAXNUMERI];
         int[] nEstratti5 = new int[MAXNUMERI];
         int numero;
@@ -48,13 +48,16 @@ System.out.println(nEstratti4[i]);
                 }
                 case 5 -> {
                     System.out.println("Vettore ordinato:");
-                     OrdinaVettore(nEstratti4,nEstratti5);
+                    OrdinaVettore(nEstratti4,nEstratti5);
 
                 }
                 case 6 -> {
                     System.out.println("Raddoppia vettore:");
-                    MAXNUMERI=50*2;
-                   RaddoppiaVettore(nEstratti4,nEstratti5);
+
+                    int[] nuovoVettore = RaddoppiaVettore(nEstratti4);
+
+                    visualizza(nuovoVettore);
+                    System.out.println("Numero di elementi aggiunti al vettore: " + (nuovoVettore.length - nEstratti4.length));
 
                 }
                 case 7 -> {
@@ -158,17 +161,15 @@ return vettore;
             vettore2[i]=vettore1[i];
         }
     }
-    public static void RaddoppiaVettore (int[] vettore,int[] array2){
-        Random rd = new Random ();
-        int n;
-        for(int i=0; i<vettore.length;i++){
-            n = rd.nextInt(0, vettore.length) + 1;
-            array2[i]=n;
+    public static int[] RaddoppiaVettore(int[] nEstratti) {
+        if (nEstratti == null) {
+            return null; // Se l'array è nullo, restituisce null
         }
-        for(int i=vettore.length;i< vettore.length*2;i++){
-            vettore[i]=array2[i];
+        int[] nuovoVettore = new int[nEstratti.length * 2]; // Nuovo array di dimensione doppia
+        for (int i = 0; i < nEstratti.length; i++) {
+            nuovoVettore[i] = nEstratti[i]; // Copia i numeri originali
         }
-
+        return nuovoVettore; // Restituisce il nuovo array con la dimensione raddoppiata
     }
 
 }
