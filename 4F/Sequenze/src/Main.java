@@ -20,46 +20,52 @@ public class Main {
         //int[] nEstratti; senza new perchè fatta nel metodo su nGenerati
         do {
             switch (menu(opzioni, tastiera)) {
-                case 1:
+                case 1 -> {
                     System.out.println("Generazione");
                 /*for (int i=0; i<MAXNUMERI; i++)
                     nGenerati[i] = numeroRandom.nextInt(0,MAXNUMERI)+1;
                  */ //nEstratti=generaNumeri(MAXNUMERI)
                     generaNumeri2(nEstratti2);
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     System.out.println("Visualizzazione");
                     /*for (int i = 0; i < nEstratti2.length; i++) {
                         System.out.println(nEstratti2[i]);
                     }*/
                     Visualizza(nEstratti2);
-                    break;
+                }
 
-                case 3:
+                case 3 -> {
                     System.out.println("Ricerca numero e posizione in cui si trova");
                     System.out.println("Quale numero vuoi cercare?");
-                    n=Integer.parseInt(tastiera2.nextLine());
-                    Ricerca(nEstratti2,n);
-                    break;
-                case 4:
+                    n = Integer.parseInt(tastiera2.nextLine());
+                    int TrovaNumero=Ricerca(nEstratti2, n);
+                    if(TrovaNumero==-1){
+                        System.out.println("Non trovato");
+                    }if(TrovaNumero==-0){
+                        System.out.println("Nessun numero generato.");
+                    }else{
+                        System.out.println("Trovato in posizione " + (TrovaNumero+1));
+                    }
+                }
+                case 4 -> {
                     System.out.println("Cancellazione");
                     System.out.println("Quale numero vuoi cancellare dal vettore?");
-                    nCancellare=Integer.parseInt(tastiera2.nextLine());
+                    nCancellare = Integer.parseInt(tastiera2.nextLine());
                     nEstratti2 = Cancellazzione(nEstratti2, nCancellare);
 
 
-
-                    break;
-                case 5 : // Cancella un numero e genera un nuovo vettore con dimensione fissa
+                }
+                case 5 -> { // Cancella un numero e genera un nuovo vettore con dimensione fissa
                     System.out.println("Cancella numero e ritorna nuovo vettore");
                     System.out.println("Inserisci il numero da cancellare");
                     n2 = Integer.parseInt(tastiera.nextLine()); // Prende il numero da cancellare
                     nEstratti2 = cancellaNumeroNuovoVettore(nEstratti2, n2, MAXNUMERI); // Cancella e rigenera un nuovo vettore di 20 elementi
-                    break;
-                case 6:
+                }
+                case 6 -> {
                     System.out.println("Fine");
                     esci = false;
-                    break;
+                }
             }
         } while (esci);
     }
@@ -114,26 +120,26 @@ public class Main {
 
     public static int Ricerca(int[] nEstratti,int ricerca){
         if (nEstratti == null) { // Controlla se non ci sono numeri generati
-            System.out.println("Nessun numero generato.");
-            return -1;
+
+            return 0;
         }
         for (int i = 0; i < nEstratti.length; i++) { // Cicla attraverso l'array
             if (ricerca == nEstratti[i]) {
-                System.out.println("Trovato in posizione " + (i + 1)); // Restituisce la posizione trovata
+
                 return i; // Restituisce l'indice del numero trovato
             }
         }
-        System.out.println("Non trovato");
+
         return -1; // Restituisce -1 se non trovato
     }
 
-/*
-1-Realizzare un metodo che permetta di cancellare un numero dal vettore(il numero di elementi dovrà essere decrementato)
-ricompattando il vettore;
-2-Realizzare un metodo che permetta di cancellare un numero dal vettore e  ritorni un nuovo vettore sempre completo.
-Visualizzare a video l'esito dell'operazione es: valore cancellato, valore non presente, valore outOfRange (controllo da eseguire sul valore
-fornito in input dall'utente).
- */
+    /*
+    1-Realizzare un metodo che permetta di cancellare un numero dal vettore(il numero di elementi dovrà essere decrementato)
+    ricompattando il vettore;
+    2-Realizzare un metodo che permetta di cancellare un numero dal vettore e  ritorni un nuovo vettore sempre completo.
+    Visualizzare a video l'esito dell'operazione es: valore cancellato, valore non presente, valore outOfRange (controllo da eseguire sul valore
+    fornito in input dall'utente).
+     */
     public static int[] Cancellazzione(int [] nEstratti,int n){
 
 
