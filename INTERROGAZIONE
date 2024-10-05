@@ -2,3 +2,10 @@ Java è un linguaggio orientato agli oggetti
 -teorema di bongedupini: ogni problema si risolve con :sequenza,iterazione,selezione
 -Java :object oriented,codice sorgenete(estensione .java), bytecode(estensione .class) e lo eseguo con la JVM, è un linguaggio multi piattaforma  
 -ogni linguaggio si scrive con un ide non formattato, dopo avere il codice sorgente .java dobbiamo compilare il file sorgente con la jdk e qui viene generato il Bytecode
+attributi integer lavorano su degli interi
+differenza tra interi e primitivi 
+cosa fanno metodi: dividono codice in blocchi funzionali che ognuno di loro svogle una funzione su dei dati forniti dal main 
+un metodo può essere void o int/double/string.. iun base a cosa mi ritorna
+public static ---- NomeMetodo(argomento metodo){...}
+come definire un pakcage , richiamarlo= import static e nome del package , usiamo static perchè possiamo omettere il nome della classe che diventa obbligatorio senza static 
+
