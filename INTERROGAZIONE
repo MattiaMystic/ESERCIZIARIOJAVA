@@ -1,0 +1,4 @@
+Java è un linguaggio orientato agli oggetti
+-teorema di bongedupini: ogni problema si risolve con :sequenza,iterazione,selezione
+-Java :object oriented,codice sorgenete(estensione .java), bytecode(estensione .class) e lo eseguo con la JVM, è un linguaggio multi piattaforma  
+-ogni linguaggio si scrive con un ide non formattato, dopo avere il codice sorgente .java dobbiamo compilare il file sorgente con la jdk e qui viene generato il Bytecode
