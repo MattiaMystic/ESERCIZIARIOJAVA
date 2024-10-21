@@ -1,7 +1,8 @@
+
 import Mensola.Libro;
 import java.util.Scanner;
 import static Tools.Utility.*;
-import static FrontScreen.FrontEnd.*;
+import static FrontEnd.FrontScreen.*;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -11,7 +12,7 @@ public class Main {
         boolean uscita = false;
         int cont = 0;
         do {
-            String[] opzioni = {"---MENSOLA---", "1- inserimento", "2- visualizza", "3-cancella libro", "4- Fine"};
+            String[] opzioni = {"---MENSOLA---", "1- inserimento", "2- visualizza", "3-cancella libro", "4-ricerca", "5- Fine"};
             int scelta = menu(opzioni, sc);
             switch (scelta) {
 
@@ -19,8 +20,8 @@ public class Main {
                     System.out.println("Inserimento");
                     if (cont < MAXLIBRI) {
                         Libro nuovoLibro = LeggiLibro(sc);
-                        boolean presente = libroDoppio(mensola, cont, nuovoLibro);
-                        if (!presente) {
+
+                        if (libroDoppio(mensola, cont, nuovoLibro) == -1) {
                             mensola[cont] = nuovoLibro;
                             cont++;
                         } else {
@@ -49,24 +50,43 @@ public class Main {
                         cont--;
                     }
                 }
-                    case 4 -> {
-                        System.out.println("Fine");
-                        uscita = true;
+                case 4 -> {
+                    System.out.println("ricerca");
+                    System.out.println("Quale libro vuoi ricercare? Inserisci il titolo:");
+                    try {
+                        Libro Titolo = new Libro();
+                        Titolo.Titolo = sc.nextLine();
+
+                        if (findIndex(mensola, cont, Titolo) != -1) {
+                            System.out.println(mensola[findIndex(mensola, cont, Titolo)].FormattaDati());
+                        } else {
+                            throw new Exception("Titolo libro non trovato");
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
                     }
+                }
+
+
+                case 5 -> {
+                    System.out.println("Fine");
+                    uscita = true;
+                }
+
 
             }
-        }while (!uscita) ;
 
+        } while (!uscita);
     }
 
-    public static boolean libroDoppio(Libro[] mensola, int cont, Libro nuovoLibro) {
+    public static int libroDoppio(Libro[] mensola, int cont, Libro nuovoLibro) {
         for (int i = 0; i < cont; i++) {
             if (mensola[i].Autore.equalsIgnoreCase(nuovoLibro.Autore) &&
                     mensola[i].Titolo.equalsIgnoreCase(nuovoLibro.Titolo)) {
-                return true; // Doppione trovato
+                return i; // Doppione trovato
             }
         }
-        return false; // Nessun doppione trovato
+        return -1; // Nessun doppione trovato
     }
 
     public static boolean eliminaLibro(Libro[] mensola, int contaLibri, String titoloCercato) {
@@ -84,5 +104,25 @@ public class Main {
         }
 
         return trovato;
+    }
+
+    public static int findIndex(Libro[] mensola, int cont, Libro nuovoLibro) {
+        for (int i = 0; i < cont; i++) {
+            if (mensola[i].Titolo.equalsIgnoreCase(nuovoLibro.Titolo)) {
+                return i;
+            }
+        }
+
+
+        return -1;
+    }
+
+    public static int findall(Libro[] mensola, int cont, Libro nuovoLibro) {
+        int Cont=0;
+        for (int i = 0; i < cont; i++) {
+            if (mensola[i].Titolo.equalsIgnoreCase(nuovoLibro.Titolo)) {
+                Cont++;
+            }
+        }
     }
 }
