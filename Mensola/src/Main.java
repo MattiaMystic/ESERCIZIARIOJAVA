@@ -11,11 +11,11 @@ public class Main {
         int cont=0;
         ArrayList<Libro> mensola=new ArrayList<>();
         boolean uscita=false;
-        String[] opzioni={"--Mensola--","1-Inserimento","2-Visualizzazione","3-Esci"};//inserimento con controllo che non sia presente
+        String[] opzioni={"--Mensola--","1-Inserimento","2-Visualizzazione","3-Cancellazzione","4.Fine"};//inserimento con controllo che non sia presente
         do{
             switch (menu(opzioni,sc)){
                 case 1-> {
-                        System.out.println("Inserimento");
+                    System.out.println("Inserimento");
                     if (cont < MAXLIBRI) {
                         Libro nuovoLibro = LeggiLibro(sc);
 
@@ -36,7 +36,7 @@ public class Main {
                         System.out.println("Quale dei"+cont+" libri vuoi visualizzare");
                         int sceltaLibro = Integer.parseInt(sc.nextLine());
                         System.out.println( mensola.get(sceltaLibro-1).FormattaDati());
-                       //mensola.forEach(System.out::println);
+                        //mensola.forEach(System.out::println);
 
                     }else{
                         System.out.println("Nessun libro da visualizzare ");
@@ -44,6 +44,29 @@ public class Main {
 
                 }
                 case 3 ->{
+                    System.out.println("Visualizzazione");
+                    if(cont>0) {
+                        System.out.println("Inserisci titolo e autore del libro da elliminare");
+                        Libro LibroDaCancellare = new Libro();
+                        System.out.println("Titolo:");
+                        LibroDaCancellare.Titolo=sc.nextLine();
+                        System.out.println("Autore:");
+                        LibroDaCancellare.Autore=sc.nextLine();
+                        if(Cancellato(mensola,cont,LibroDaCancellare)!=-1){
+                            mensola.remove(Cancellato(mensola,cont,LibroDaCancellare));
+                            cont--;
+                        }else{
+                            System.out.println("Nessun libro cancellato");
+                        }
+
+
+
+                    }else{
+                        System.out.println("Nessun libro da visualizzare ");
+                    }
+
+                }
+                case 4 ->{
                     System.out.println("Uscita");
                     uscita=true;
                 }
@@ -61,6 +84,17 @@ public class Main {
             }
         }
         return -1;
+    }
+    public static int Cancellato(ArrayList<Libro> Mensola, int cont, Libro nuovoLibro){
+        for(int i=0;i<cont;i++){
+            if(Mensola.get(i).Autore.equals(nuovoLibro.Autore)&&Mensola.get(i).Titolo.equals(nuovoLibro.Titolo)){
+
+                return i;
+            }
+        }
+        return -1;
+
+
     }
 
 }
