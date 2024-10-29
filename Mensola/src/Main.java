@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import Mensola.Libro;
 
@@ -16,17 +17,21 @@ public class Main {
             switch (menu(opzioni,sc)){
                 case 1-> {
                     System.out.println("Inserimento");
-                    if (cont < MAXLIBRI) {
-                        Libro nuovoLibro = LeggiLibro(sc);
+                    try {
+                        if (cont < MAXLIBRI) {
+                            Libro nuovoLibro = LeggiLibro(sc);
 
-                        if (libroDoppio(mensola, cont, nuovoLibro) == -1) {
-                            mensola.add(nuovoLibro);
-                            cont++;
-                        } else {
-                            System.out.println("Il libro è già presente.");
+                            if (libroDoppio(mensola, cont, nuovoLibro) == -1) {
+                                mensola.add(nuovoLibro);
+                                cont++;
+                            } else {
+                                System.out.println("Il libro è già presente.");
+                            }
+                        }else {
+                            throw new Exception("Non è possibile inserire altri libri");
                         }
-                    } else {
-                        System.out.println("Non è possibile inserire altri libri");
+                    }catch(Exception e){
+                        System.out.println(e.getMessage());
                     }
                 }
 
@@ -58,6 +63,14 @@ public class Main {
                         }else{
                             System.out.println("Nessun libro cancellato");
                         }
+                        /* Libro LibroDaCancellare = new Libro();
+                         System.out.println("Titolo:");
+                        LibroDaCancellare.Titolo=sc.nextLine();
+                        System.out.println("Autore:");
+                        LibroDaCancellare.Autore=sc.nextLine();
+                        mensola.removeIf(m-> mensola.contains(LibroDaCancellare));
+
+                         */
 
 
 
@@ -85,6 +98,17 @@ public class Main {
         }
         return -1;
     }
+    /* con eccezzione
+    public static int libroDoppio1(ArrayList<Libro> Mensola, int cont, Libro nuovoLibro)throws Exception {
+        for (int i = 0; i < cont; i++) {
+            if (Mensola.get(i).Autore.equalsIgnoreCase(nuovoLibro.Autore) &&
+                    Mensola.get(i).Titolo.equalsIgnoreCase(nuovoLibro.Titolo)) {
+           throw new Exception("Libro doppio");
+            }
+        }
+        return -1;
+    }*/
+
     public static int Cancellato(ArrayList<Libro> Mensola, int cont, Libro nuovoLibro){
         for(int i=0;i<cont;i++){
             if(Mensola.get(i).Autore.equals(nuovoLibro.Autore)&&Mensola.get(i).Titolo.equals(nuovoLibro.Titolo)){
