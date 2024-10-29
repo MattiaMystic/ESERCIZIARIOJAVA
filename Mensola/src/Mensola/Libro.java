@@ -17,6 +17,12 @@ public class Libro {
     public String FormattaDati(){
         return String.format("Autore : %s , Titolo: %s, PREZZOPAGINA %.2f, Pagine:%d , tipo: %s, Data: %s ",Autore,Titolo,PREZZOPAGINA*pagine,pagine,tipo,dataDiPubblicazione.format(dataFormat));
     }
+    @Override
+    public boolean equals(Object o){
+        Libro l=(Libro) o;
+        return Autore.equals(l.Autore) && Titolo.equals(l.Titolo);
+    }
+
 
 
 }
