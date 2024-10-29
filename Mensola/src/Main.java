@@ -68,7 +68,7 @@ public class Main {
                         LibroDaCancellare.Titolo=sc.nextLine();
                         System.out.println("Autore:");
                         LibroDaCancellare.Autore=sc.nextLine();
-                        mensola.removeIf(m-> mensola.contains(LibroDaCancellare));
+                        mensola.removeIf(m-> m.Autore.equals(LibroDaCancellare.Autore)&& m.Titolo.equals(LibroDaCancellare.Titolo));
 
                          */
 
