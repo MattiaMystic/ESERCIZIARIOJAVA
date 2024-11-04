@@ -23,6 +23,8 @@ public class FrontEnd {
             case 2 -> l.tipo =Tipologia.Manuale;
             case 3 -> l.tipo =Tipologia.Thriller;
         }
+        System.out.println("Inserisci numero pagine:");
+        l.pagine=Integer.parseInt(Keyboard.nextLine());
         System.out.println("Inserisci la data di pubblicazione in formato dd-MM-yyyy");
         l.dataDiPubblicazione= LocalDate.parse(Keyboard.nextLine(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         return l;
