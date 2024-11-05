@@ -1,4 +1,6 @@
 import LUNAPARK.Persona;
+import LUNAPARK.Tipologia;
+import java.util.Random;
 import static FrontScreen.FrontEnd.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,6 +12,7 @@ public class Main {
         Scanner sc= new Scanner(System.in);
         boolean uscita =false;
         int cont=0;
+        Random rd= new Random();
 
         /*
         Creare un programma per gestire gli accessi a un luna park.
@@ -26,64 +29,65 @@ d)Il programma deve gestire eventuali situazioni di errore.
          */
 
         final int MAXPERSONE = 5;
-        ArrayList<Persona> persone = new ArrayList<Persona>();
+        ArrayList<Persona> persone = new ArrayList<>();
 
-    String [] opzioni={"--LUNA PARK","1-Entrata o uscita persona","2-Visualizzazione","3-Visualizza giorno e ora delle persone nelle giostre","4-Visualizzazione tempo dentro luna park di una persona","5-esci"};
-      String[] entratauscita={"--ENTRATA O USCITA","1-Entrata","2-Uscita"};
-   do{
-       switch (menu(opzioni,sc)){
-           case 1->{
-               System.out.println("Inserimento");
-               try {
-                   if (cont < MAXPERSONE) {
-                       switch (menu(entratauscita, sc)) {
-                           case 1 -> {
-                               System.out.println("Entrata");
-                               persone.addLast(InserisciPersona(sc));
-                               cont++;
-                           }
-                           case 2 -> {
-                               if(cont>0) {
-                                   System.out.println("Uscita");
-                                   Persona personaDaTogliere = new Persona();
-                                   System.out.println("Inserisci nome della persona da togliere:");
-                                   personaDaTogliere.nome=sc.nextLine();
-                                   System.out.println("Inserisci cognome della persona da togliere:");
-                                   personaDaTogliere.cognome=sc.nextLine();
-                                   Rimuovi(persone,personaDaTogliere);
-                                   cont--;
-                               }else{
-                                   throw new Exception("Non c'è nessuna persona rimasta");
-                               }
-                           }
-                           default -> {
-                               System.out.println("Scelta non valida");
-                           }
-                       }
-                   } else {
-                       throw new Exception("Luna park pieno");
-                   }
-               }
-               catch(Exception e){
-                       System.out.println(e.getMessage());
-                   }
+        String [] opzioni={"--LUNA PARK","1-Entrata o uscita persona","2-Visualizzazione","3-Visualizza giorno e ora delle persone nelle giostre","4-Visualizzazione tempo dentro luna park di una persona","5-esci"};
+        String[] entratauscita={"--ENTRATA O USCITA","1-Entrata","2-Uscita"};
+        do{
+            switch (menu(opzioni,sc)){
+                case 1->{
+                    System.out.println("Inserimento");
+                    try {
+                      
+                            switch (menu(entratauscita, sc)) {
+                                case 1 -> {
+                                    System.out.println("Entrata");
+                                    if(cont<MAXPERSONE) {
+                                        persone.add(Entrata(cont));
+                                        cont++;
+                                    }else{
+                                        throw new Exception("LunaPark pieno");
+                                    }
+                                }
+                                case 2 -> {
+                                    if(cont>0) {
+                                        System.out.println("Uscita");
+                                        Persona personaDaTogliere = new Persona();
+                                        System.out.println("Inserisci numero biglietto della persona da togliere:");
+                                        personaDaTogliere.biglietto=Integer.parseInt(sc.nextLine());
 
-           }
-           case 2->{
+                                        Rimuovi(persone,personaDaTogliere);
+                                        cont--;
+                                    }else{
+                                        throw new Exception("Non c'è nessuna persona rimasta");
+                                    }
+                                }
+                                default -> {
+                                    System.out.println("Scelta non valida");
+                                }
+                            }
+                       
+                    }
+                    catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
 
-           }
-           case 3->{
+                }
+                case 2->{
 
-           }
-           case 4->{
+                }
+                case 3->{
 
-           }
-           case 5->{
-               System.out.println("Esci");
-            uscita=true;
-           }
-       }
-   }while(!uscita);
+                }
+                case 4->{
+
+                }
+                case 5->{
+                    System.out.println("Esci");
+                    uscita=true;
+                }
+            }
+        }while(!uscita);
 
 
 
@@ -92,7 +96,7 @@ d)Il programma deve gestire eventuali situazioni di errore.
     }
     public static int ricerca(ArrayList<Persona> persone, Persona nuovo) {
         for(int i=0; i< persone.size(); i++){
-            if(persone.get(i).nome.equals(nuovo.nome) && persone.get(i).cognome.equals(nuovo.cognome)){
+            if(persone.get(i).biglietto==nuovo.biglietto){
                 return i;
             }
         }
@@ -105,5 +109,25 @@ d)Il programma deve gestire eventuali situazioni di errore.
         } else
             throw new Exception("Persona non trovata");
     }
-    }
+    public static Persona Entrata(int nBiglietto){
+        Persona cliente = new Persona();
+        Random rd= new Random ();
+        cliente.biglietto=nBiglietto;
+ switch(rd.nextInt(0,4)){
+     case 1->{
+        cliente.giostreUsate=Tipologia.RuotaPanoramica;
+     }
+     case 2->{
+         cliente.giostreUsate=Tipologia.Tagadà;
+     }
+     case 3->{
+         cliente.giostreUsate=Tipologia.Ottovolante;
+     }
+     case 4->{
+         cliente.giostreUsate=Tipologia.Autoscontro;
+     }
+ }
 
+        return cliente;
+    }
+}
