@@ -1,12 +1,17 @@
 package LUNAPARK;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+
 public class Persona {
-    public String nome;
-    public String cognome;
-    public int età;
-   public Tipologia tipo;
-    public String FormattaDati(){
-        return String.format("Nome : %s , Cognome: %s, età %d,giostra: %s",nome,cognome,età,tipo);
+    public int biglietto;
+    public LocalDateTime entrata= LocalDateTime.now();
+    public Tipologia giostreUsate;
+
+    @Override
+    public String toString(){
+        DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd-MM-yyyy-hh-mm-ss");
+        return String.format("Numero Biglietto : %d ,giostra: %s, orario entrata: %s",biglietto,giostreUsate,entrata.format(formatter));
     }
 }
-
