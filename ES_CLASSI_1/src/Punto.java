@@ -1,25 +1,31 @@
 public class Punto {
     private double x;
     private double y;
+    final private int MAX_X=10;
+    final private int MAX_Y=10;
     public Punto(double x, double y)throws Exception{
     setX(x);
     setY(y);
     }
+    public Punto (double x)throws Exception{
+        this(x,10);
+    }
 
-    public void setX(double x)throws Exception {
-        try {
+    public void setX(double x) throws Exception {
+        if(x<MAX_X) {
+  throw new Exception("Ordinata OUT_OF_RANGE_X");
+        }else{
             this.x = x;
-        }catch(Exception e){
-            throw e;
         }
     }
 
-    public void setY(double y)throws Exception {
-        try {
-            this.y = y;
-        }catch(Exception e){
-            throw e;
-        }
+    public void setY(double y) throws Exception {
+    if(y<MAX_Y){
+
+    }else {
+        this.y = y;
+    }
+
     }
 
     public double getX() {
