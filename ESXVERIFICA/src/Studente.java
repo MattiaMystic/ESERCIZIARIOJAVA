@@ -50,4 +50,15 @@ public class Studente {
         }
         this.eta = eta;
     }
+    /*
+    public boolean isEquals(Studente s){
+       return( this.nome.equals(s.nome) && this.cognome.equals(s.cognome));
+    }*/
+    @Override
+    public boolean equals(Object obj){
+        if(obj==null || obj.getClass() != this.getClass()){
+   return false;
+        }
+        return( this.nome.equals(((Studente) obj).nome) && this.cognome.equals(((Studente) obj).cognome));//lo studente è un cast che converte obj in studente
+    }
 }
