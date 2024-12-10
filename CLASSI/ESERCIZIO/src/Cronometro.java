@@ -5,35 +5,33 @@ public class Cronometro {
     private LocalTime endTime;
     private int tempoGiro;
 
-    public Cronometro(LocalTime startTime, LocalTime endTime) {
-        SetStartTime();
-        SetEndTime();    }
-     void SetStartTime(){
-startTime=LocalTime.now();
+    public Cronometro() {
+        setStartTime();
+        setEndTime();
     }
-     void SetEndTime(){
-        endTime=LocalTime.now();
+
+    void setStartTime() {
+        startTime = LocalTime.now();
+    }
+
+    void setEndTime() {
+        endTime = LocalTime.now();
     }
 
     public int getTempoGiro() {
         return tempoGiro;
     }
 
-    int calcolaIntTimer()throws Exception{
+    void calcolaIntTimer() throws Exception {
         int tempoGiro;
-        tempoGiro=this.endTime.toSecondOfDay()-this.startTime.toSecondOfDay();
-        if(tempoGiro==0){
+        tempoGiro = this.endTime.toSecondOfDay() - this.startTime.toSecondOfDay();
+        if (tempoGiro == 0)
             throw new Exception("Cronometro stop");
-            this.tempoGiro=tempoGiro;
-        }
+        this.tempoGiro = tempoGiro;
     }
 
     @Override
     public String toString() {
-        return "Cronometro{" +
-                "startTime=" + startTime +
-                ", endTime=" + endTime +
-                ", tempoGiro=" + tempoGiro +
-                '}';
+        return String.format("Tempo: %d", tempoGiro);
     }
 }

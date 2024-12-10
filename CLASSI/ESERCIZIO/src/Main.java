@@ -1,25 +1,27 @@
 import java.util.Random;
-
+import static utility.Tools.*;
 public class Main {
     public static void main(String[] args) {
-       Random rn= new Random();
-        String nome= null;
+        Random rn = new Random();
+        int tempo;
         try {
-            Pilota p = new Pilota(nome, "Andreetti", "America");
-            Pilota p1 = new Pilota("Maichol", "Schumacher", "Tedesco");
-            System.out.println(p.toString());
-            System.out.println(p1.toString());
-        }catch(Exception e){
+            Pilota p1 = new Pilota("Mario", "Andretti", "America");
+            Pilota p2 = new Pilota("Michael", "Schumacher", "Tedesco");
+            System.out.println(p1);
+            System.out.println(p2);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
-        try{
-            Cronometro cr= new Cronometro();
+        try {
+            Cronometro cr = new Cronometro();
+            tempo = rn.nextInt(1000, 5000) + 1;
+            cr.setStartTime();
+            Wait(tempo);
+            cr.setEndTime();
             cr.calcolaIntTimer();
-
-        }catch(Exception e){
+            System.out.println(cr.getTempoGiro());
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-
+        }
     }
-
 }
