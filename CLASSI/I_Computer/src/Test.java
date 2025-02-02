@@ -107,12 +107,14 @@ public class Test {
                                 uscita2 = true;
                             }
                         }
-                    } while (uscita);
+                    } while (!uscita2);
 
 
                 }
                 case 2 -> {
                     System.out.println("Visualizza");
+                    System.out.println(fissi.toString());
+                    System.out.println(portatili.toString());
                 }
                 case 3 -> {
                     System.out.println("Fine");
@@ -121,7 +123,7 @@ public class Test {
 
 
             }
-        } while (uscita);
+        } while (!uscita);
 
     }
 
