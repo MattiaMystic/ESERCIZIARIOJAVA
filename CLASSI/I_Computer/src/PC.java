@@ -32,8 +32,7 @@ public class PC {
                 ", memoria=" + memoria +
                 ", marca='" + marca + '\'' +
                 ", modello='" + modello + '\'' +
-                ", sistemaOperativo='" + sistemaOperativo + '\'' +
-                '}';
+                ", sistemaOperativo='" + sistemaOperativo + '\'';
     }
 
     public String getProcessore() {

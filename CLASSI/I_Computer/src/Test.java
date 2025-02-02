@@ -1,5 +1,6 @@
 import static frontend.Tools.Menu;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Test {
@@ -15,6 +16,8 @@ public class Test {
         Codificare una classe Test il cui metodo main istanzi oggetti corrispondenti alle varie tipologie di PC e invochi ciascuno dei metodi definiti almeno una volta. Sempre nella stessa classe
         Test verificare i meccanismi di up-casting e down-casting.
          */
+        ArrayList<PC_Portatili> portatili = new ArrayList<>();
+        ArrayList<PC_Fissi> fissi = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         String[] Opzione = {"--COMPUTER--", "1-Inserisci PC", "2-Visualizza", "3-Fine"};
         boolean uscita = false;
@@ -28,8 +31,75 @@ public class Test {
                         switch (Menu(OpzionePC, sc)) {
                             case 1 -> {
                                 System.out.println("Inserisci PC");
+                                boolean uscita3 = false;
+                                String[] Opzioni3 = {"--PC_PORTATILI--", "1-Inserisci", "2-Visualizza", "3-Fine"};
+                                do {
+                                    switch (Menu(Opzioni3, sc)) {
+
+                                        case 1 -> {
+                                            try {
+                                                PC_Portatili.addPortatile(portatili, sc);
+
+                                            } catch (Exception e) {
+                                                System.out.println(e.getMessage());
+                                            }
+
+                                        }
+                                        case 2 -> {
+                                            System.out.println(portatili.toString());
+                                        }
+                                        case 3 -> {
+                                            uscita3 = true;
+                                        }
+                                    }
+
+
+                                } while (!uscita3);
                             }
                             case 2 -> {
+                                System.out.println("Inserisci PC Fisso");
+                                boolean uscita4 = false;
+                                String[] Opzioni3 = {"--PC_FISSI--", "1-Inserisci", "2-Visualizza", "3-Fine"};
+                                do {
+                                    switch (Menu(Opzioni3, sc)) {
+
+                                        case 1 -> {
+                                            String[] opzioniPCFISSI = {"--INSERIMENTO PC FISSI--", "1-Server", "2-Desktop", "3-Fine"};
+                                            boolean uscita5 = false;
+                                            do {
+                                                switch (Menu(opzioniPCFISSI, sc)) {
+                                                    case 1 -> {
+                                                        try {
+                                                            Server.addServer(fissi, sc);
+                                                        } catch (Exception e) {
+                                                            System.out.println(e.getMessage());
+                                                        }
+                                                    }
+                                                    case 2 -> {
+                                                        try {
+                                                            Desktop.addDesktop(fissi,sc);
+                                                        } catch (Exception e) {
+                                                            System.out.println(e.getMessage());
+                                                        }
+                                                    }
+                                                    case 3 -> {
+                                                        uscita5 = true;
+                                                    }
+                                                }
+
+
+                                            } while (!uscita5);
+                                        }
+                                        case 2 -> {
+                                            System.out.println(fissi.toString());
+                                        }
+                                        case 3 -> {
+                                            uscita4 = true;
+                                        }
+                                    }
+
+
+                                } while (!uscita4);
 
                             }
                             case 3 -> {
