@@ -1,17 +1,32 @@
-abstract public class ProdottoElettronico implements Cloneable {
+/**
+ * classe astratta per gestire il prodotto elettronico
+ * @author Mattia Pavarin
+ * @version 2.0
+ * @since 31/03/2025
+ *
+ *
+ */
+abstract public class ProdottoElettronico implements Cloneable, Prodotto {
 
-    private int codiceProdotto;
+    private int codice;
     private String marca;
     private int prezzo;
 
-    protected ProdottoElettronico(int codiceProdotto, String marca, int prezzo) {
-        this.codiceProdotto = codiceProdotto;
+    /**
+     * metodo per aggiungere un prdotto
+     * @param codice
+     * @param marca
+     * @param prezzo
+     */
+
+    protected ProdottoElettronico(int codice, String marca, int prezzo) {
+        this.codice = codice;
         this.marca = marca;
         this.prezzo = prezzo;
     }
 
-    public int getCodiceProdotto() {
-        return codiceProdotto;
+    public int getCodice() {
+        return codice;
     }
 
     public void setPrezzo(int prezzo) {
@@ -20,7 +35,7 @@ abstract public class ProdottoElettronico implements Cloneable {
 
     @Override
     public String toString() {
-        return String.format("Codice Prodotto: %d, Marca: %s, Prezzo: %d", codiceProdotto, marca, prezzo);
+        return String.format("Codice Prodotto: %d, Marca: %s, Prezzo: %d", codice, marca, prezzo);
     }
 
     @Override
@@ -33,6 +48,6 @@ abstract public class ProdottoElettronico implements Cloneable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProdottoElettronico p = (ProdottoElettronico) o;
-        return codiceProdotto == p.codiceProdotto;
+        return codice == p.codice;
     }
 }
