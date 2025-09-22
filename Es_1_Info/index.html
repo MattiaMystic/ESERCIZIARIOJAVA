@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modulo di Contatto</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h2>Inserisci i tuoi dati</h2>
+
+    <form action="#" method="post">
+      <label for="fname">Nome</label>
+      <input type="text" id="fname" name="firstname" placeholder="Il tuo nome..." required>
+
+      <label for="lname">Cognome</label>
+      <input type="text" id="lname" name="lastname" placeholder="Il tuo cognome..." required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="La tua email..." required>
+
+      <label for="phone">Telefono</label>
+      <input type="tel" id="phone" name="phone" placeholder="Il tuo numero di telefono..." required>
+      
+      
+      <label for="sessom">Maschio</label>
+        <input type="radio" id="sessom" name="sesso" value="Maschio" required>
+        <label for="sessof">Femmina</label>
+        <input type="radio" id="sessof" name="sesso" value="Femmina" required>
+        
+        <br><br>
+
+      <label for="nationality">Nazionalità</label>
+      <div class="nationality-container">
+        <img src="nazionalita.jpg" alt="Bandiera Italia" class="flag-img">
+        <select id="nationality" name="Nazione" required>
+          <option value="Italia">Italia</option>
+          <option value="Estero">Estero</option>
+        </select>
+      </div>
+
+      <input type="checkbox"> Accetto i termini e le condizioni
+      <br><br>
+
+      <input type="submit" value="Invia">
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+/* Box model e font */
+html, body {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenitore principale */
+.container {
+    width: 90%;
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    border: 2px solid #4CAF50;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+/* Titolo */
+h2 {
+    text-align: center;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+/* Label e input */
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Input di testo ed email */
+input[type="text"],
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+
+.nationality-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.flag-img {
+    width: 30px;  
+    height: auto;
+}
+
+/* Check box */
+input[type="checkbox"] {
+    margin-top: 10px;
+}
+
+/* Bottone invia */
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049; /* Colore più scuro al passaggio del mouse */
+}
+
+/* Aggiungo un lieve margine per evitare che il checkbox e il bottone siano troppo vicini */
+form br {
+    margin-bottom: 10px;
+}
+
