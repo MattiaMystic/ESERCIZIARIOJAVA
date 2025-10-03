@@ -1,71 +1,87 @@
 import static tools.Utility.*;
 
+import java.util.Scanner;
 
-public static void main(String[] args) {
-    /*
-    Esercizio: Gestore di Testi
-Scopo: Creare un programma che permetta all'utente di inserire e manipolare una frase,
-dimostrando la conoscenza delle principali funzioni della classe String di Java.
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-Struttura del progetto:
-- Main.java: Gestisce il menu e il flusso principale del programma.
-- Package Tools:
-- GestoreTesti.java: Contiene tutti i metodi per le operazioni sulle stringhe.
-- Utility.java: Contiene i metodi di servizio (menu, pulizia schermo, etc.).
+        String[] opzioni = {
+                "GESTORE TESTI",
+                "Verifica lunghezza frase",
+                "Cerca parola",
+                "Sostituisci parola",
+                "Conteggio vocali e consonanti",
+                "Inverti frase",
+                "Estrai una porzione di frase",
+                "Esci"
+        };
 
-Obiettivi:
-- Organizzare il codice in classi e pacchetti separati per responsabilità.
-- Metodi String: Utilizzare metodi come .length(), .contains(), .replaceAll(), .substring(), .split(), etc.
-- Gestione Input: Usare lo Scanner e gestire input validi e non validi.
-- Controllo del Flusso: Utilizzare cicli (do-while) e strutture condizionali (switch).
+        System.out.println("Inserisci una frase: ");
+        String frase = sc.nextLine();
 
-GestoreTesti deve fare le seguenti cose:
--verificare la lunghezza della frase;
--verificare se è presente una parola (es. "Ciao mondo", cerca mondo);
--sostituire di una parola (es. "Ciao mondo", sostituisci mondo con Luca);
--conteggio vocali e consonanti;
--invertire una frase (es. "ciao", "oaic");
--estrarre una porzione di frase (.subString());
--tornare al menu principale;
--uscire dal programma.
-     */
-    Scanner sc = new Scanner(System.in);
-    String[] opzioni = {"GESTORE TESTI",
-            " Verifica lunghezza frase ",
-            " Cerca parola ",
-            " Sostituisci parola",
-            " Conteggio vocali e consonanti",
-            " Estrai una porzione di frase",
-            " esci"};
-    boolean uscita = false;
-    System.out.println("Inserisci una stringa: ");
-    String stringa1 = sc.nextLine();
-    GestoreTesti gestore = new GestoreTesti();
+        GestoreTesti gestore = new GestoreTesti();
 
-    do {
-        switch (Menu(opzioni, sc)) {
-            case 1 -> {
-                System.out.println("La lunghezza è: "+gestore.lunghezzaFrase(stringa1));
+        boolean uscita = false;
+
+        do {
+            int scelta = Menu(opzioni, sc);
+
+            switch (scelta) {
+                case 1 -> System.out.println("Lunghezza frase: " + gestore.lunghezzaFrase(frase));
+
+                case 2 -> {
+                    System.out.print("Inserisci la parola da cercare: ");
+                    String parola = sc.nextLine();
+                    boolean trovato = gestore.cercaParola(frase, parola);
+                    if(trovato) {
+                        System.out.println("La parola è stata trovata");
+                    }
+                    else {
+                        System.out.println("La parola non è stata trovata");
+
+                    }
+                }
+
+                case 3 -> {
+                    System.out.print("Inserisci la parola da sostituire: ");
+                    String vecchia = sc.nextLine();
+                    System.out.print("Inserisci la nuova parola: ");
+                    String nuova = sc.nextLine();
+                    frase = gestore.sostituisciParola(frase, vecchia, nuova);
+                    System.out.println("Frase aggiornata: " + frase);
+                }
+
+                case 4 -> {
+                    int[] conta = gestore.contaVocaliEConsonanti(frase);
+                    System.out.println("Vocali: " + conta[0] + ", Consonanti: " + conta[1]);
+                }
+
+                case 5 -> {
+                    String invertita = gestore.invertiFrase(frase);
+                    System.out.println("Frase invertita: " + invertita);
+                }
+
+                case 6 -> {
+                    System.out.println("Inserisci indice inizio: ");
+                    int inizio = Integer.parseInt(sc.nextLine());
+                    System.out.println("Inserisci indice fine: ");
+                    int fine = Integer.parseInt(sc.nextLine());
+                    String porzione = gestore.estraiPorzione(frase, inizio, fine);
+                    System.out.println("Porzione estratta: " + porzione);
+                }
+
+                case 7 -> {
+                    System.out.println("Uscita in corso...");
+                    uscita = true;
+                }
+
+                default -> System.out.println("Opzione non valida, riprova.");
             }
 
-            case 2 -> {
 
-            }
-            case 3 -> {
-
-            }
-            case 4 -> {
-
-            }
-            case 5 -> {
-
-            }
-            case 6 -> {
-                uscita = true;
-            }
-        }
-
-    } while (!uscita);
+        } while (!uscita);
 
 
+    }
 }
