@@ -3,13 +3,6 @@ package tools;
 import java.util.Scanner;
 
 public class Utility {
-    /*public static void main(String[] args) {
-
-    }*/
-    private Utility() {
-    }
-
-    ; //impedisce di istanziare la classe
 
    /* public static void clrScr() {
         try {
