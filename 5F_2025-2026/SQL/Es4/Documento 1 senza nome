@@ -1,0 +1,3 @@
+delete from MOCK_DATA where id=1000;
+select * from MOCK_DATA where id>995;
+
