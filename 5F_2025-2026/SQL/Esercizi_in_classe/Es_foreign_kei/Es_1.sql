@@ -1,4 +1,6 @@
-use Clinica;
+create database if not exists mattia_pavarin_clinica;
+
+use mattia_pavarin_clinica;
 
 create table pazienti(
 Id_paziente int auto_increment primary key,
@@ -29,6 +31,8 @@ insert into pazienti(cognome,nome,data_nascita,provincia,codice_Asl )values
 ('Esposito', 'Francesco', '1983-09-19', 'Napoli', 'ASL-NA07'),
 ('Conti', 'Marta', '1995-05-30', 'Roma', NULL);
 
+insert into pazienti(cognome,nome,data_nascita,provincia,codice_Asl )values
+("gigio","luca",'1985-04-10', 'Milano', 'ASL-MI01');
 select * from pazienti;
 
 select * from visite;
@@ -63,9 +67,16 @@ select p.cognome,p.nome,v.pressione_min,v.pressione_max  ,avg(pressione_min) as 
 on p.Id_paziente =v.id_paziente
 where cognome like ("Bianchi");
 
+SELECT nome,cognome,v.data_visita
+from pazienti p
+inner join visite v
+on p.Id_paziente= v.id_paziente ;
+
+SELECT nome,cognome,v.data_visita 
+from pazienti p
+left join visite v
+on p.Id_paziente= v.id_paziente ;
 
 drop table visite;
 
 drop table pazienti;
-
-
