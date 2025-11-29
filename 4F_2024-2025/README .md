@@ -1,20 +1,9 @@
-# ✨ Java Complete Guide -- From Basics to OOP + UML
+##✨ Java Complete Guide – From Basics to OOP + UML
+<p align="center"> <img src="https://img.shields.io/badge/Language-Java-orange?style=for-the-badge&logo=openjdk"> <img src="https://img.shields.io/badge/Status-Complete-brightgreen?style=for-the-badge"> <img src="https://img.shields.io/badge/Level-Beginner%20%2F%20Intermediate-blue?style=for-the-badge"> </p> <p align="center"> <img src="https://img.shields.io/github/stars/yourusername/yourrepo?style=social"> </p>
 
-```{=html}
-<p align="center">
-```
-`<img src="https://img.shields.io/badge/Language-Java-orange?style=for-the-badge&logo=openjdk">`{=html}
-`<img src="https://img.shields.io/badge/Status-Complete-brightgreen?style=for-the-badge">`{=html}
-`<img src="https://img.shields.io/badge/Level-Beginner%20%2F%20Intermediate-blue?style=for-the-badge">`{=html}
-```{=html}
-</p>
-```
 ## 📘 Panoramica del Progetto
 
-Benvenuto nella guida definitiva per imparare Java da zero fino ai
-concetti avanzati della programmazione orientata agli oggetti (OOP) con
-diagrammi UML integrati.\
-📌 Perfetta per studenti, principianti e progetti GitHub didattici.
+
 
 ------------------------------------------------------------------------
 
