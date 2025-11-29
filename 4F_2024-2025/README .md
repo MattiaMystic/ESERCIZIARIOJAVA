@@ -5,7 +5,10 @@ Lingua: Italiano
 
 # 📘 Introduzione a Java — Guida completa (da principiante ad intermedio-avanzato)
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](#licenza) [![Java](https://img.shields.io/badge/Java-11%2B-orange.svg)](#requisiti) [![Build](https://img.shields.io/badge/build-maven-brightgreen.svg)](#build-e-esecuzione) [![GitHub Actions](https://img.shields.io/badge/ci-GitHub_Actions-blueviolet.svg)](#integrazione-continuo)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/license/mit/)
+[![Java](https://img.shields.io/badge/Java-11%2B-orange.svg)](https://docs.oracle.com/en/java/javase/)
+[![Build](https://img.shields.io/badge/build-maven-brightgreen.svg)](https://maven.apache.org/)
+[![GitHub Actions](https://img.shields.io/badge/ci-GitHub_Actions-blueviolet.svg)](https://docs.github.com/en/actions)
 
 > Una guida chiara, completa e pronta all'uso per imparare Java: dalle basi della sintassi fino a concetti più avanzati come **classi astratte**, **interfacce**, **generics**, test automatici e best practices. Ideale per studenti, sviluppatori alle prime armi e chi vuole un README da inserire nel proprio repository GitHub.
 
