@@ -515,10 +515,3 @@ R: No, ma sono fortemente consigliati per la gestione delle dipendenze e le buil
 
 Questo README è pensato per essere un **punto di partenza completo**: contiene esempi chiari, snippet pronti all'uso e indicazioni su strumenti e pratiche. Puoi personalizzarlo ulteriormente (aggiungere diagrammi UML, esempi avanzati, demo) in base al tuo progetto.
 
----
-
-*Generato e migliorato per te — se vuoi, posso:*
-- tradurlo in inglese,
-- generare anche `README.pdf`,
-- aggiungere diagrammi UML completi,
-- creare un template di progetto completo con Maven/Gradle.
